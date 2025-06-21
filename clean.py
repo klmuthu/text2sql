@@ -198,24 +198,21 @@ try:
             print(f"Subnet deletion error for {subnet['SubnetId']}: {e}")
     
     # Wait a moment for everything to be cleaned up
-    print("Waiting for resources to be fully cleaned up...")
+    print("Waiting for resources to be fully cleaned up...", flush=True)
     time.sleep(10)
     
     # Delete VPC
     try:
-        print(f"Deleting VPC: {vpc_id}")
+        print(f"Deleting VPC: {vpc_id}", flush=True)
         ec2.delete_vpc(VpcId=vpc_id)
-        print("VPC deleted")
+        print("✅ VPC deleted successfully", flush=True)
     except Exception as e:
-        print(f"VPC deletion error: {e}")
+        print(f"VPC deletion error: {e}", flush=True)
 
 except Exception as e:
-    print(f"Error during cleanup: {e}")
+    print(f"Error during cleanup: {e}", flush=True)
 
-print("Cleanup completed!")
+print("Cleanup completed!", flush=True)
 
-# Force exit for Jupyter notebook compatibility
-import sys
-print("✅ Cleanup script execution completed successfully!")
-sys.stdout.flush()
-sys.exit(0)
+# Natural completion for Jupyter notebook compatibility
+print("✅ Cleanup completed successfully!", flush=True)

@@ -127,26 +127,25 @@ while True:
     try:
         response = rds.describe_db_instances(DBInstanceIdentifier=config['aurora']['instance_identifier'])
         status = response['DBInstances'][0]['DBInstanceStatus']
-        print(f"Instance status: {status}")
+        print(f"Instance status: {status}", flush=True)
         
         if status == 'available':
+            print("✅ Aurora instance is now available!", flush=True)
             break
         elif status in ['failed', 'deleted', 'deleting']:
             raise Exception(f"Instance creation failed with status: {status}")
         
+        print("⏳ Waiting 30 seconds before next status check...", flush=True)
         time.sleep(30)
     except Exception as e:
         if 'DBInstanceNotFound' in str(e):
             raise Exception("Instance creation failed - instance not found")
         raise
 
-print("Infrastructure deployment completed!")
-print(f"VPC ID: {vpc_id}")
-print(f"Cluster: {config['aurora']['cluster_identifier']}")
-print(f"Database: {config['aurora']['database_name']}")
+print("Infrastructure deployment completed!", flush=True)
+print(f"VPC ID: {vpc_id}", flush=True)
+print(f"Cluster: {config['aurora']['cluster_identifier']}", flush=True)
+print(f"Database: {config['aurora']['database_name']}", flush=True)
 
-# Force exit for Jupyter notebook compatibility
-import sys
-print("✅ Script execution completed successfully!")
-sys.stdout.flush()
-sys.exit(0)
+# Natural completion for Jupyter notebook compatibility
+print("✅ Infrastructure deployment completed successfully!", flush=True)
