@@ -215,4 +215,7 @@ except Exception as e:
 print("Cleanup completed!")
 
 # Force exit for Jupyter notebook compatibility
+import sys
+print("✅ Cleanup script execution completed successfully!")
+sys.stdout.flush()
 sys.exit(0)

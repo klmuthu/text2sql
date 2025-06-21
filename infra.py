@@ -146,4 +146,7 @@ print(f"Cluster: {config['aurora']['cluster_identifier']}")
 print(f"Database: {config['aurora']['database_name']}")
 
 # Force exit for Jupyter notebook compatibility
+import sys
+print("✅ Script execution completed successfully!")
+sys.stdout.flush()
 sys.exit(0)
