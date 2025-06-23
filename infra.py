@@ -147,5 +147,19 @@ print(f"VPC ID: {vpc_id}", flush=True)
 print(f"Cluster: {config['aurora']['cluster_identifier']}", flush=True)
 print(f"Database: {config['aurora']['database_name']}", flush=True)
 
+# Get the cluster ARN and secrets ARN for dynamic linking
+cluster_arn = cluster['DBCluster']['DBClusterArn']
+secrets_arn = cluster['DBCluster']['MasterUserSecret']['SecretArn']
+
+print("\n" + "="*80)
+print("📋 COPY THESE VALUES TO YOUR JUPYTER NOTEBOOK:")
+print("="*80)
+print("# Database connection configuration")
+print("# Replace the hardcoded values in your notebook with these:")
+print(f"CLUSTER_ARN = '{cluster_arn}'")
+print(f"SECRET_ARN = '{secrets_arn}'")
+print(f"DATABASE_NAME = '{config['aurora']['database_name']}'")
+print("="*80)
+
 # Natural completion for Jupyter notebook compatibility
 print("✅ Infrastructure deployment completed successfully!", flush=True)

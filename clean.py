@@ -197,17 +197,18 @@ try:
         except Exception as e:
             print(f"Subnet deletion error for {subnet['SubnetId']}: {e}")
     
-    # Wait a moment for everything to be cleaned up
-    print("Waiting for resources to be fully cleaned up...", flush=True)
-    time.sleep(10)
+    # Wait for all resources to be fully cleaned up before attempting VPC deletion
+    print("Waiting for all resources to be fully cleaned up before VPC deletion...")
+    time.sleep(30)  # Increased wait time
     
-    # Delete VPC
+    # Delete VPC as the very last step
     try:
-        print(f"Deleting VPC: {vpc_id}", flush=True)
+        print(f"Attempting to delete VPC: {vpc_id}")
         ec2.delete_vpc(VpcId=vpc_id)
-        print("✅ VPC deleted successfully", flush=True)
+        print("✅ VPC deleted successfully")
     except Exception as e:
-        print(f"VPC deletion error: {e}", flush=True)
+        print(f"❌ VPC deletion failed: {e}")
+        print("   This is common on first run. Try running clean.py again to complete VPC deletion.")
 
 except Exception as e:
     print(f"Error during cleanup: {e}", flush=True)
