@@ -7,9 +7,14 @@ import sys
 with open('config.json', 'r') as f:
     config = json.load(f)
 
-# Initialize clients
-ec2 = boto3.client('ec2', region_name=config['aws']['region'])
-rds = boto3.client('rds', region_name=config['aws']['region'])
+# Get current AWS region dynamically
+session = boto3.Session()
+aws_region = session.region_name or 'us-west-2'  # fallback to us-west-2 if not set
+print(f"Using AWS region: {aws_region}")
+
+# Initialize clients with dynamic region
+ec2 = boto3.client('ec2', region_name=aws_region)
+rds = boto3.client('rds', region_name=aws_region)
 
 # Create VPC
 vpc = ec2.create_vpc(CidrBlock=config['vpc']['cidr_block'])
@@ -159,6 +164,7 @@ print("# Replace the hardcoded values in your notebook with these:")
 print(f"CLUSTER_ARN = '{cluster_arn}'")
 print(f"SECRET_ARN = '{secrets_arn}'")
 print(f"DATABASE_NAME = '{config['aurora']['database_name']}'")
+print(f"AWS_REGION = '{aws_region}'")
 print("="*80)
 
 # Natural completion for Jupyter notebook compatibility
